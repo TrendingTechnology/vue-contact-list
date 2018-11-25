@@ -1,9 +1,9 @@
 <template>
   <div class="table">
+
     <h1>Contact List</h1>
 
-        <div class="gridContainer">
-        
+        <div class="gridHeader">
             <div>
                 Full Name
             </div>
@@ -16,8 +16,9 @@
             <div></div>
             </div>
         
-        <div class="gridContent" v-for="contactNames of contacts"
+        <div v-for="contactNames of contacts"
             v-bind:key = "contactNames['.key']">
+            <div  class="gridContent" v-if="!contactNames.edit">
             <div>
                 {{contactNames.name}}
             </div>
@@ -28,9 +29,25 @@
                 {{contactNames.phone}}
             </div>
             <div>
-                <button>Edit</button>
-                <button>Remove</button>
+                <button @click="setEditContact(contactNames['.key'])">Edit</button>
+                <button @click="removeContact(contactNames['.key'])">Remove</button>
             </div>
+            </div>
+            <div class="gridContent" v-else>
+                <div>
+                    <input type="text" v-model="contactNames.name" />
+                </div>
+                <div>
+                     <input type="text" v-model="contactNames.email" />
+                </div>
+                <div>
+                    <input type="text" v-model="contactNames.phone" />
+                </div>
+                <div>
+                    <button @click="saveEdit(contactNames)">Save</button>
+                    <button @click="cancelEdit(contactNames['.key'])">Cancel</button>
+                </div>
+                </div>
         </div>
 
 
@@ -104,7 +121,7 @@ export default {
 
 <!-- Add "scoped" attribute to limit CSS to this component only -->
 <style scoped>
-.gridContainer,
+.gridHeader,
 .gridContent,
 .addContainer {
   display: grid;
