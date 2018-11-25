@@ -1,61 +1,70 @@
 <template>
   <div class="table">
     <h1>Contact List</h1>
-    <table>
-        <tr>
-            <th>
+
+        <div class="gridContainer">
+        
+            <div>
                 Full Name
-            </th>
-            <th>
+            </div>
+            <div>
                 Email Address
-            </th>
-            <th>
+            </div>
+            <div>
                 Phone Number
-            </th>
-            <th></th>
-        </tr>
-        <tr v-for="contactNames of contacts"
+            </div>
+            <div></div>
+            </div>
+        
+        <div class="gridContent" v-for="contactNames of contacts"
             v-bind:key = "contactNames['.key']">
-            <td>
-                    {{contactNames.name}}
-            </td>
-                        <td>
+            <div>
+                {{contactNames.name}}
+            </div>
+            <div>
                 {{contactNames.email}}
-            </td>
-                        <td>
+            </div>
+            <div>
                 {{contactNames.phone}}
-            </td>
-            <td>
+            </div>
+            <div>
                 <button>Edit</button>
                 <button>Remove</button>
-            </td>
-        </tr>
+            </div>
+        </div>
 
 
-                <tr>
-            <td>
+        <div class = "addContainer">
+            <div>
                 <input type="text" v-model="name">
-            </td>
-                        <td>
+            </div>
+             <div>
                 <input type="text" v-model="email">
-            </td>
-                        <td>
+            </div>
+            <div>
                 <input type="text" v-model="phone">
-            </td>
-            <td>
+            </div>
+            <div>
                 <button @click="submitContact()">Add</button>
               
-            </td>
+            </div>
 
-        </tr>
-    </table>
-  </div>
+        </div>
+    </div>
+ 
 </template>
 
 <script>
 import { contactsRef } from "../firebase";
 export default {
   name: "ContactTable",
+  data() {
+    return {
+      name: "",
+      phone: "",
+      email: ""
+    };
+  },
   firebase: {
     contacts: contactsRef
   },
@@ -70,6 +79,24 @@ export default {
       this.name = "";
       this.phone = "";
       this.email = "";
+    },
+    removeContact(key) {
+      contactsRef.child(key).remove();
+    },
+    setEditContact(key) {
+      contactsRef.child(key).update({ edit: true });
+    },
+    cancelEdit(key) {
+      contactsRef.child(key).update({ edit: false });
+    },
+    saveEdit(contact) {
+      const key = contact[".key"];
+      contactsRef.child(key).set({
+        name: contact.name,
+        email: contact.email,
+        phone: contact.phone,
+        edit: false
+      });
     }
   }
 };
@@ -77,6 +104,13 @@ export default {
 
 <!-- Add "scoped" attribute to limit CSS to this component only -->
 <style scoped>
+.gridContainer,
+.gridContent,
+.addContainer {
+  display: grid;
+  grid-template-columns: 2fr 2fr 2fr 2fr;
+  grid-auto-rows: 3fr;
+}
 h3 {
   margin: 40px 0 0;
 }
