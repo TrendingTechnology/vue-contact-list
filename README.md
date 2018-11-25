@@ -1,29 +1,18 @@
-# vue-contact-list
+# Vue Contact List
 
-## Project setup
-```
-yarn install
-```
+A contact list built with Vue.  Offers CRUD operations to a firebase database
 
-### Compiles and hot-reloads for development
-```
-yarn run serve
-```
 
-### Compiles and minifies for production
-```
-yarn run build
-```
+### Installing
 
-### Run your tests
-```
-yarn run test
-```
++ Clone this repo 
++ `cd vue-contact-list`
++ run `yarn`
++ run `yarn serve`
 
-### Lints and fixes files
-```
-yarn run lint
-```
 
-### Customize configuration
-See [Configuration Reference](https://cli.vuejs.org/config/).
+
+## Built With
+
+* [Vue.js](https://vuejs.org)
+* [Firebase](https://firebase.google.com)
