@@ -127,19 +127,8 @@ export default {
   display: grid;
   grid-template-columns: 2fr 2fr 2fr 2fr;
   grid-auto-rows: 3fr;
+  gap: 10px 5px;
 }
-h3 {
-  margin: 40px 0 0;
-}
-ul {
-  list-style-type: none;
-  padding: 0;
-}
-li {
-  display: inline-block;
-  margin: 0 10px;
-}
-a {
-  color: #42b983;
+.table {
 }
 </style>
